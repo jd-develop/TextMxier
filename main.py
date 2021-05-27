@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # coding:utf-8
 import random
-import tkinter
+import tkinter as tk
 
 
 def listToStr(list):
@@ -13,17 +13,21 @@ def listToStr(list):
 
 
 def MixSentence(sentence):
+    """ Mixe une phrase """
+    # Apostrophes
     apostrophesPos = []
     for pos, letter in enumerate(sentence):
         apostrophe = False
         if letter == "'":
             apostrophe = True
             apostrophesPos.append(pos)
-        print(letter + " " + str(apostrophe))
-    print(apostrophesPos)
+
+    # Avoir une liste de mots
     sentence = sentence.replace("'", " ")
     sentence = sentence.split()
     mxiedSentence = ''
+
+    # Traitement par mots
     for word in sentence:
         if not len(word) == 1:
             firstLetter = word[:1]  # on récupère la 1ère lettre du txt
@@ -47,12 +51,46 @@ def MixSentence(sentence):
         else:  # point-virgule et double-point
             mxiedSentence += word + ' '
 
+    # rajout des apostrophes
     mxiedSentence = list(mxiedSentence)
     if not len(apostrophesPos) == 0:
         for apostrophePos in apostrophesPos:
+            mxiedSentence.pop(apostrophePos)  # supprimer l'esapce créé à la place de l'apostrophe
             mxiedSentence.insert(apostrophePos, "'")
     mxiedSentence = listToStr(mxiedSentence)
     
     return mxiedSentence
 
-print(MixSentence("Ceci est un test avec, des ponctuations ; des apo'str'ophes : des choses en tout genre... !! ??? ??!!"))
+
+APP_BACKGROUND = '#87CEEB'
+
+root = tk.Tk()
+root.title("TextMxier")
+root.geometry("900x500")
+root.minsize(900, 500)
+# root.iconbitmap('icon.ico')
+root.config(background=APP_BACKGROUND)
+root.grid_columnconfigure(0, weight=1)
+root.grid_rowconfigure(0, weight=1)
+
+frame = tk.Frame(root, bg=APP_BACKGROUND)
+
+enterTextFrame = tk.Frame(frame, bg='green')
+enterTextLabel = tk.Label(enterTextFrame, text="Entrez du texte :", bg=APP_BACKGROUND)
+enterTextEntry = tk.Entry(enterTextFrame, bg=APP_BACKGROUND)
+
+resultFrame = tk.Frame(frame, bg='green')
+resultLabel = tk.Label(resultFrame, text="Résultat :", bg=APP_BACKGROUND)
+resultEntry = tk.Entry(resultFrame, bg=APP_BACKGROUND)
+
+enterTextLabel.pack()
+enterTextEntry.pack(fill='x', expand=True)
+enterTextFrame.grid(row=0, column=0)
+
+resultLabel.pack()
+resultEntry.pack(fill='x', expand=True)
+resultFrame.grid(row=0, column=1)
+
+frame.pack(expand=tk.YES)
+
+print(MixSentence("Ceci est un test avec, des ponctuations ; des apo'str'ophes : des choses en tout genre... Aujourd'aujourd'hui !! ??? ??!!"))
