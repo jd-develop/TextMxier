@@ -4,6 +4,14 @@ import random
 import tkinter as tk
 
 
+def mix():
+    result = mixSentence(enterTextEntry.get("1.0", tk.END))
+    resultEntry.config(state=tk.NORMAL)
+    resultEntry.delete("1.0", tk.END)
+    resultEntry.insert("1.0", result)
+    resultEntry.config(state=tk.DISABLED)
+
+
 def listToStr(list):
     """ Convertit une liste ["a", "b", "cd"] en un str "abcd" """
     str = ''
@@ -12,14 +20,12 @@ def listToStr(list):
     return str
 
 
-def MixSentence(sentence):
+def mixSentence(sentence):
     """ Mixe une phrase """
     # Apostrophes
     apostrophesPos = []
     for pos, letter in enumerate(sentence):
-        apostrophe = False
         if letter == "'":
-            apostrophe = True
             apostrophesPos.append(pos)
 
     # Avoir une liste de mots
@@ -66,31 +72,35 @@ APP_BACKGROUND = '#87CEEB'
 
 root = tk.Tk()
 root.title("TextMxier")
-root.geometry("900x500")
-root.minsize(900, 500)
+root.geometry("1300x500+10+10")
+root.minsize(1100, 400)
 # root.iconbitmap('icon.ico')
 root.config(background=APP_BACKGROUND)
-root.grid_columnconfigure(0, weight=1)
-root.grid_rowconfigure(0, weight=1)
+# root.grid_columnconfigure(0, weight=1)
+# root.grid_rowconfigure(0, weight=1)
 
 frame = tk.Frame(root, bg=APP_BACKGROUND)
 
-enterTextFrame = tk.Frame(frame, bg='green')
+enterTextFrame = tk.Frame(frame, bg=APP_BACKGROUND)
 enterTextLabel = tk.Label(enterTextFrame, text="Entrez du texte :", bg=APP_BACKGROUND)
-enterTextEntry = tk.Entry(enterTextFrame, bg=APP_BACKGROUND)
+enterTextEntry = tk.Text(enterTextFrame, bg=APP_BACKGROUND)
 
-resultFrame = tk.Frame(frame, bg='green')
+resultFrame = tk.Frame(frame, bg=APP_BACKGROUND)
 resultLabel = tk.Label(resultFrame, text="Résultat :", bg=APP_BACKGROUND)
-resultEntry = tk.Entry(resultFrame, bg=APP_BACKGROUND)
+resultEntry = tk.Text(resultFrame, bg=APP_BACKGROUND)
+resultEntry.config(state=tk.DISABLED)
 
 enterTextLabel.pack()
-enterTextEntry.pack(fill='x', expand=True)
+enterTextEntry.pack()
 enterTextFrame.grid(row=0, column=0)
 
 resultLabel.pack()
-resultEntry.pack(fill='x', expand=True)
+resultEntry.pack()
 resultFrame.grid(row=0, column=1)
 
-frame.pack(expand=tk.YES)
+resultButton = tk.Button(root, text="Mixer", bg=APP_BACKGROUND, command=lambda: mix())
 
-print(MixSentence("Ceci est un test avec, des ponctuations ; des apo'str'ophes : des choses en tout genre... Aujourd'aujourd'hui !! ??? ??!!"))
+frame.pack()
+resultButton.pack()
+enterTextEntry.focus()
+root.mainloop()
