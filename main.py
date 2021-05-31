@@ -1,7 +1,19 @@
 #!/usr/bin/env python3
 # coding:utf-8
 import random
+import sys
 import tkinter as tk
+from tkinter import messagebox as msg
+
+__VERSION__ = "beta b0.1"
+
+
+def about():
+    msg.showinfo("À propos du programme", "TextMxier\n"
+                                          "Mixeur de phrases.\n"
+                                          "Version {}\n"
+                                          "Python ".format(__VERSION__) + str(sys.version_info[0]) + "." + str(sys.version_info[1]) + "." + str(sys.version_info[2]) + "\n"
+                                          "Développé par Jean Dubois <jd-dev@laposte.net>.")
 
 
 def mix():
@@ -93,6 +105,21 @@ root.geometry("1300x500+10+10")
 root.minsize(1100, 400)
 # root.iconbitmap('icon.ico')
 root.config(background=APP_BACKGROUND)
+
+menuBar = tk.Menu(root)
+
+fileMenu = tk.Menu(menuBar, tearoff=0)
+fileMenu.add_command(label="Mixer", command=lambda: mix())
+fileMenu.add_separator()
+fileMenu.add_command(label="Quitter", command=lambda: quit(0))  # quitter le programme
+menuBar.add_cascade(label="Fichier", menu=fileMenu)
+
+optionsMenu = tk.Menu(menuBar, tearoff=0)
+optionsMenu.add_command(label="À propos du programme...", command=lambda: about())  # à propos du programme
+menuBar.add_cascade(label="Options", menu=optionsMenu)
+
+root.config(menu=menuBar)
+
 frame = tk.Frame(root, bg=APP_BACKGROUND)
 
 enterTextFrame = tk.Frame(frame, bg=APP_BACKGROUND)
