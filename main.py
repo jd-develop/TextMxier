@@ -28,8 +28,18 @@ def mixSentence(sentence):
         if letter == "'":
             apostrophesPos.append(pos)
 
+    # Retour ligne
+    backPos = []
+    for pos, letter in enumerate(sentence):
+        if letter == '\n':
+            try:
+                if not sentence[pos - 1] == '\n':
+                    backPos.append(pos)
+            except IndexError:
+                pass
+
     # Avoir une liste de mots
-    sentence = sentence.replace("'", " ")
+    sentence = sentence.replace("'", " ").replace("\n", " ")
     sentence = sentence.split()
     mxiedSentence = ''
 
@@ -63,8 +73,15 @@ def mixSentence(sentence):
         for apostrophePos in apostrophesPos:
             mxiedSentence.pop(apostrophePos)  # supprimer l'esapce créé à la place de l'apostrophe
             mxiedSentence.insert(apostrophePos, "'")
+    if not len(backPos) == 0:
+        for backpos in backPos:
+            try:
+                mxiedSentence.pop(backpos)  # supprimer l'esapce créé à la place de l'apostrophe
+                mxiedSentence.insert(backpos, "\n")
+            except IndexError:  # deux retours ligne à la suite
+                pass
     mxiedSentence = listToStr(mxiedSentence)
-    
+
     return mxiedSentence
 
 
@@ -76,9 +93,6 @@ root.geometry("1300x500+10+10")
 root.minsize(1100, 400)
 # root.iconbitmap('icon.ico')
 root.config(background=APP_BACKGROUND)
-# root.grid_columnconfigure(0, weight=1)
-# root.grid_rowconfigure(0, weight=1)
-
 frame = tk.Frame(root, bg=APP_BACKGROUND)
 
 enterTextFrame = tk.Frame(frame, bg=APP_BACKGROUND)
