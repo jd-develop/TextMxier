@@ -2,6 +2,7 @@
 # coding:utf-8
 import random
 import sys
+import webbrowser
 import tkinter as tk
 from tkinter import messagebox as msg
 
@@ -115,6 +116,10 @@ fileMenu.add_command(label="Quitter", command=lambda: quit(0))  # quitter le pro
 menuBar.add_cascade(label="Fichier", menu=fileMenu)
 
 optionsMenu = tk.Menu(menuBar, tearoff=0)
+githubIssuesCascadeInOptionsMenu = tk.Menu(optionsMenu, tearoff=0)
+githubIssuesCascadeInOptionsMenu.add_command(label="Reporter un bug", command=lambda: webbrowser.open("https://github.com/jd-develop/TextMxier/issues/new?assignees=&labels=&template=rapport-de-bug.md&title=%5BBUG%5D+-+%28description+rapide%29", new=0))
+githubIssuesCascadeInOptionsMenu.add_command(label="Faire une demande de fonctionnalité", command=lambda: webbrowser.open("https://github.com/jd-develop/TextMxier/issues/new?assignees=&labels=&template=demande-de-fonctionnalit-.md&title=%5BDEMANDE+DE+FONCTIONNALITE%5D"))
+optionsMenu.add_cascade(label="Issues GitHub", menu=githubIssuesCascadeInOptionsMenu)
 optionsMenu.add_command(label="À propos du programme...", command=lambda: about())  # à propos du programme
 menuBar.add_cascade(label="Options", menu=optionsMenu)
 
