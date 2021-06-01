@@ -6,14 +6,15 @@ import webbrowser
 import tkinter as tk
 from tkinter import messagebox as msg
 
-__VERSION__ = "beta b0.1"
+__VERSION__ = "beta b0.2"
 
 
 def about():
     msg.showinfo("À propos du programme", "TextMxier\n"
                                           "Mixeur de phrases.\n"
                                           "Version {}\n"
-                                          "Python ".format(__VERSION__) + str(sys.version_info[0]) + "." + str(sys.version_info[1]) + "." + str(sys.version_info[2]) + "\n"
+                                          "Python ".format(__VERSION__) + str(sys.version_info[0]) + "." +
+                                          str(sys.version_info[1]) + "." + str(sys.version_info[2]) + "\n"
                                           "Développé par Jean Dubois <jd-dev@laposte.net>.")
 
 
@@ -26,7 +27,7 @@ def mix():
 
 
 def listToStr(list):
-    """ Convertit une liste ["a", "b", "cd"] en un str "abcd" """
+    """ Convertit une liste ['a', 'b', 'cd'] en un str 'abcd' """
     str = ''
     for i in list:
         str += i
@@ -41,13 +42,17 @@ def mixSentence(sentence):
         if letter == "'":
             apostrophesPos.append(pos)
 
+    sentence = sentence.replace('\n\n\n\n\n', '\n')
+    sentence = sentence.replace('\n\n\n\n', '\n')
+    sentence = sentence.replace('\n\n\n', '\n')
+    sentence = sentence.replace('\n\n', '\n')
     # Retour ligne
     backPos = []
     for pos, letter in enumerate(sentence):
         if letter == '\n':
             try:
-                if not sentence[pos - 1] == '\n':
-                    backPos.append(pos)
+                # if not sentence[pos - 1] == '\n':
+                backPos.append(pos)
             except IndexError:
                 pass
 
