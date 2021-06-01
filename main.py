@@ -6,7 +6,7 @@ import webbrowser
 import tkinter as tk
 from tkinter import messagebox as msg
 
-__VERSION__ = "beta b0.2"
+__VERSION__ = "beta b0.2-1"
 
 
 def about():
@@ -15,7 +15,8 @@ def about():
                                           "Version {}\n"
                                           "Python ".format(__VERSION__) + str(sys.version_info[0]) + "." +
                                           str(sys.version_info[1]) + "." + str(sys.version_info[2]) + "\n"
-                                          "Développé par Jean Dubois <jd-dev@laposte.net>.")
+                                          "Développé par Jean Dubois <jd-dev@laposte.net>."
+                                          "Icône par Icongeek26.")
 
 
 def mix():
@@ -103,13 +104,13 @@ def mixSentence(sentence):
     return mxiedSentence
 
 
-APP_BACKGROUND = '#87CEEB'
+APP_BACKGROUND = '#F5DA81'
 
 root = tk.Tk()
 root.title("TextMxier")
 root.geometry("1300x500+10+10")
 root.minsize(1100, 400)
-# root.iconbitmap('icon.ico')
+root.iconbitmap('icon.ico')
 root.config(background=APP_BACKGROUND)
 
 menuBar = tk.Menu(root)
