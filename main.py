@@ -6,7 +6,7 @@ import webbrowser
 import tkinter as tk
 from tkinter import messagebox as msg
 
-__VERSION__ = "beta b0.2-1"
+__VERSION__ = "1.0"
 
 
 def about():
