@@ -110,7 +110,10 @@ root = tk.Tk()
 root.title("TextMxier")
 root.geometry("1300x500+10+10")
 root.minsize(1100, 400)
-root.iconbitmap('icon.ico')
+try:
+    root.iconbitmap('icon.ico')
+except tk.TclError:
+    pass
 root.config(background=APP_BACKGROUND)
 
 menuBar = tk.Menu(root)
